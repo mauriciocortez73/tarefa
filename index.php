@@ -1,37 +1,27 @@
 <?php
-require 'conexao.php';
-
-$stmt = $pdo->query("SELECT * FROM tarefa");
-$tarefas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+include 'conexao.php';
+$result = $conn->query("SELECT * FROM tarefas");
 ?>
 
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Tarefas</title>
-</head>
-<body>
-    <h1>Lista de Tarefas</h1>
-    <a href="inserir.php">Criar Nova Tarefa</a>
-    <table border="1">
-        <tr>
-            <th>Matéria</th>
-            <th>Descrição</th>
-            <th>Data de Entrega</th>
-            <th>Ações</th>
-        </tr>
-        <?php foreach ($tarefa as $tarefas): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($tarefas['materia']); ?></td>
-            <td><?php echo htmlspecialchars($tarefas['descricao']); ?></td>
-            <td><?php echo htmlspecialchars($tarefas['data_entrega']); ?></td>
-            <td>
-                <a href="editar.php?id=<?php echo $tarefas['id']; ?>">Editar</a> |
-                <a href="excluir.php?id=<?php echo $tarefas['id']; ?>" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
-</body>
-</html>
+<h2>Lista de Tarefas</h2>
+<a href="inserir.php">Nova Tarefa</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Materia</th>
+        <th>Descricao</th>
+        <th>Data de Entrega</th>
+    </tr>
+    <?php while($row = $result->fetch_assoc()): ?>
+    <tr>
+        <td><?php echo $row['id']; ?></td>
+        <td><?php echo $row['materia']; ?></td>
+        <td><?php echo $row['descricao']; ?></td>
+        <td><?php echo $row['data_entrega']; ?></td>
+        <td>
+            <a href="editar.php?id=<?php echo $row['id']; ?>">Editar</a>
+            <a href="excluir.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Tem certeza?')">Excluir</a>
+        </td>
+    </tr>
+    <?php endwhile; ?>
+</table>
