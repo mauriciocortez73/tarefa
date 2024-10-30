@@ -1,13 +1,12 @@
 <?php
 $host = 'localhost';
-$dbname = 'tarefa_banco';
+$db = 'tarefa';
 $user = 'user';
-$password = 'toor';
+$pass = '123';
 
-try {
-    $pdo = new PDO("mariadb:host=$host;dbname=$dbname;charset=utf8", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erro de conexão: " . $e->getMessage()); 
+$conn = new mysqli($host, $user, $pass, $db);
+
+if ($conn->connect_error) {
+    die("Falha na conexão: " . $conn->connect_error);
 }
 ?>
