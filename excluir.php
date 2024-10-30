@@ -1,12 +1,12 @@
 <?php
-require 'conexao.php';
+include 'conexao.php';
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $stmt = $pdo->prepare("DELETE FROM tarefa WHERE id = ?");
-    $stmt->execute([$id]);
-
-    header("Location: index.php");
-    exit();
+    $stmt = $conn->prepare("DELETE FROM tarefa WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
 }
+
+header("Location: index.php");
 ?>
