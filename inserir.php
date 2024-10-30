@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $materia = $_POST['materia'];
     $descricao = $_POST['descricao'];
 
-    $stmt = $conn->prepare("INSERT INTO usuarios (materia, descricao) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO tarefa (materia, descricao) VALUES (?, ?)");
     $stmt->bind_param("sss", $materia, $descricao);
     $stmt->execute();
     header("Location: index.php");
